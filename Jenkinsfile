@@ -18,5 +18,11 @@ pipeline {
               
             }
         }
+        stage('Launch Application') {
+            steps {
+                bat "docker ps"
+              
+            }
+        }
     }
 }
