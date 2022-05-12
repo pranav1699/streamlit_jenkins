@@ -18,7 +18,7 @@ pipeline {
               
             }
         }
-        stage('Launch Application') {
+        stage('docker container lookup') {
             steps {
                 bat "docker ps"
               
