@@ -1,31 +1,25 @@
 pipeline {
-  agent any
-  stages {
-    stage("verify tooling") {
-      steps {
-        bat '''
-          docker version
-          docker info
-          docker compose version 
-        '''
-      }
+    environment {
+    registry = "dgmtech"
+    registryCredential = 'dockerhub'
+}
+    agent any
+
+    stages {
+        stage('Build Docker Image') {
+            steps {
+              sh 'docker build -t streamlit_app:latest .' 
+              
+            }
+        }
+       
+        
+         
+         stage('Launch Application') {
+            steps {
+              sh 'docker run --rm -itd -p 8502:8502 --name streamlit streamlit_app:latest' 
+              
+            }
+        }
     }
-   
-    stage("build container") {
-      steps {
-        bat "docker build -t streamlit_app:latest ."
-      }
-    }
-    stage('Start containers') {
-      steps {
-          bat "docker run --rm -itd -p 8502:8502 --name streamlit streamlit_app:latest"
-      }
-    }
-    stage("container") {
-      steps {
-        bat "docker ps"
-      }
-    }
-    
-  }
 }
