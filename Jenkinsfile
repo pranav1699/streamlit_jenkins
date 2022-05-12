@@ -21,6 +21,11 @@ pipeline {
           bat "docker run --rm -itd -p 8502:8502 -e PROJECT=${PROJECT} --name streamlit streamlit_app:latest"
       }
     }
+    stage("build container") {
+      steps {
+        bat "docker ps"
+      }
+    }
     
   }
 }
