@@ -14,7 +14,7 @@ pipeline {
          
          stage('Launch Application') {
             steps {
-              bat 'docker run --rm -itd -p 8502:8502 --name streamlit streamlit_app:latest' 
+                bat "docker run --rm -e PROJECT=${PROJECT}-itd -p 8502:8502 --name streamlit streamlit_app:latest"
               
             }
         }
